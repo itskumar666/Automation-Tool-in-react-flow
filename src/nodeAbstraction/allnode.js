@@ -1,5 +1,5 @@
 // AllNodes.js
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import BaseNode from './baseNode';
 import { Handle, Position } from 'reactflow';
 
@@ -12,7 +12,8 @@ const nodeContents = {
 
     return (
       <div className="calculator-content">
-        <input type="number" value={num1} onChange={(e) => setNum1(e.target.value)} placeholder="Number 1" />
+        <textarea name="" id="" cols="30" rows="10" value={num1} onChange={(e) => setNum1(e.target.value)} placeholder="Number 1"></textarea>
+        {/* <input type="number" value={num1} onChange={(e) => setNum1(e.target.value)} placeholder="Number 1" /> */}
         <select value={operation} onChange={(e) => setOperation(e.target.value)}>
           <option value="+">+</option>
           <option value="-">-</option>
@@ -28,6 +29,27 @@ const nodeContents = {
   Weather: (id,data) => {
     const [city, setCity] = React.useState('');
     const [weather, setWeather] = React.useState(null);
+    const [value, setValue] = useState('');
+    const inputRef = useRef(null);
+
+    useEffect(() => {
+      autoResize();
+    }, [value]);
+  
+    const autoResize = () => {
+      const input = inputRef.current;
+      if (input) {
+        input.style.height = 'auto';
+        input.style.width = 'auto';
+        input.style.height = input.scrollHeight + 'px';
+        input.style.width = input.scrollWidth + 'px';
+      }
+    };
+  
+    const handleChange = (e) => {
+      setValue(e.target.value);
+    };
+
 
     const getWeather = async () => {
       // const result = await ;
@@ -35,8 +57,16 @@ const nodeContents = {
     };
 
     return (
-      <div className="weather-content">
-        <input type="text" value={city} onChange={(e) => setCity(e.target.value)} placeholder="Enter city" />
+      <div className="weather-content" >
+               <textarea
+      ref={inputRef}
+      value={value}
+      onChange={handleChange}
+      className="dynamic-input"
+      id="value"
+      rows="1"
+    />
+        {/* <input type="text" value={city} onChange={(e) => setCity(e.target.value)} placeholder="Enter city" /> */}
         <button onClick={getWeather}>Get Weather</button>
         <Handle
         type="source"
