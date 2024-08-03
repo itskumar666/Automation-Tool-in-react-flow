@@ -1,73 +1,71 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Handle, Position } from 'reactflow';
+import {Handle,Position} from "reactflow"
 
-import './App.css';
+const AutoResizeVariableText = () => {  
+  const [text, setText] = useState('');
+  const [variables, setVariables] = useState([]);
+  const [varw, setVarw] = useState();
+ 
+  const textAreaRef = useRef(null);
+  const ref=useRef(null)
 
-export const DynamicInput = () => {
-//   const [value, setValue] = useState('');
-//   const inputRef = useRef(null);
+  useEffect(() => {
+    if (textAreaRef.current) {
+      textAreaRef.current.style.height = 'auto'; // Reset height
+      textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`; // Set to scroll height
+    }
+  }, [text])
 
-//   useEffect(() => {
-//     autoResize();
-//   }, [value]);
+  useEffect(() => {
+    const regex = /\{\{(\w+)\}\}/g;
+    const foundVariables = [...text.matchAll(regex)].map(match => match[1]);
+    console.log(foundVariables);
 
-//   const autoResize = () => {
-//     const input = inputRef.current;
-//     if (input) {
-//       input.style.height = 'auto';
-//       input.style.width = 'auto';
-//       input.style.height = input.scrollHeight + 'px';
-//       input.style.width = input.scrollWidth + 'px';
-//     }
-//   };
+    setVariables(foundVariables);
+    console.log(foundVariables, "variable");
+  }, [text]); 
 
-//   const handleChange = (e) => {
-//     setValue(e.target.value);
-//   };
+ console.log(ref.current.style.height,"height")
 
-const [text, setText] = useState(data.text || '');
-const [handles, setHandles] = useState([]);
 
-useEffect(() => {
-  const matches = text.match(/{{\s*[\w]+\s*}}/g);
-  if (matches) {
-    const variables = matches.map(match => match.replace(/{{\s*|\s*}}/g, ''));
-    setHandles(...handles,variables);
-  } else {
-    // setHandles([]);
-  }
-}, [text]);
-
-const handleTextChange = (e) => {
-  setText(e.target.value);
-  data.text = e.target.value; // Update the node data
-};
-
-const adjustTextareaHeight = (e) => {
-  e.target.style.height = 'auto';
-//   e.target.style.width = 'auto';
-//   e.target.style.width = `${e.target.scrollWidth}px`;
-  e.target.style.height = `${e.target.scrollHeight}px`;
-};
+  const handleChange = (e) => {
+    setText(e.target.value);
+  };
 
   return (
-    // <textarea
-    //   ref={inputRef}
-    //   value={value}
-    //   onChange={handleChange}
-    //   className="dynamic-input"
-    //   rows="1"
-    // />
-<>
-    <textarea
-    value={text}
-    onChange={handleTextChange}
-    onInput={adjustTextareaHeight}
-    placeholder="Enter text with {{variable}}"
-    style={{ width: '100%', boxSizing: 'border-box' }}
-  />
-  {handles &&   handles.map((handle, index) => (
-    <Handle key={index} type="source" position={Position.Left} id={handle} />
-  ))}</>
+    <div  style={{
+      position: 'relative',
+      border: '1px solid black',
+      padding:'10px',
+      minHeight: '100px', 
+      ref:{ref},
+      width: '300px', 
+    }}
+  >
+  <div>Input</div>
+      <textarea
+        ref={textAreaRef}
+        value={text}
+        
+        onChange={handleChange}
+        style={{ width: '100%', boxSizing: 'border-box',padding:'5px' }}
+      />
+    
+
+        {Array.from({ length: variables.length }).map((_, index) => (
+          <Handle
+            key={index}
+            type="target"
+            position="left"
+            id={`handle-${index}`}
+            style={{ top: `${200 / index}px` }}
+          />
+        ))}
+     
+       
+  
+    </div>
   );
 };
+
+export default AutoResizeVariableText;

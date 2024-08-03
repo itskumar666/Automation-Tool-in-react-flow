@@ -1,0 +1,8 @@
+.dynamic-input {
+    resize: none; /* Prevent manual resizing */
+    overflow: hidden; /* Hide scrollbars */
+    min-height: 20px; /* Minimum height */
+    min-width: 100px; /* Minimum width */
+    box-sizing: border-box; /* Include padding in width and height */
+  }
+  
