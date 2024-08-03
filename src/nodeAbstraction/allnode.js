@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import BaseNode from './baseNode';
 import { Handle, Position } from 'reactflow';
+import AutoResizeVariableText from './inputWrapper';
 
 // Define all node contents here
 const nodeContents = {
@@ -58,21 +59,10 @@ const nodeContents = {
 
     return (
       <div className="weather-content" >
-               <textarea
-      ref={inputRef}
-      value={value}
-      onChange={handleChange}
-      className="dynamic-input"
-      id="value"
-      rows="1"
-    />
+         <AutoResizeVariableText/>
         {/* <input type="text" value={city} onChange={(e) => setCity(e.target.value)} placeholder="Enter city" /> */}
         <button onClick={getWeather}>Get Weather</button>
-        <Handle
-        type="source"
-        position={Position.Right}
-        id={`value`}
-      />
+        
         {weather && (
           <div className="weather-display">
             <p>Temperature: {weather.temperature}°C</p>
