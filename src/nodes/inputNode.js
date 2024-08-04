@@ -16,8 +16,8 @@ export const InputNode = ({ id, data }) => {
   };
 
   return (
-    <div style={{width: 200, height: 80, border: '1px solid black'}}>
-      <div>
+    <div className="Node1-content" >
+    <div>
         <span>Input</span>
       </div>
       <div>
@@ -27,6 +27,7 @@ export const InputNode = ({ id, data }) => {
             type="text" 
             value={currName} 
             onChange={handleNameChange} 
+            style={{border:'1px rgb(18, 124, 173,0.4) solid',borderRadius: '5px',outline:'none',marginLeft:'5px'}}
           />
         </label>
         <label>

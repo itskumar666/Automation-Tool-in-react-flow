@@ -9,21 +9,36 @@
     position: relative;
   }
   
-  .handle-container {
-    background-color: rgb(10, 11, 11);
+  .handle-container{
     position: absolute;
     display: flex;
     align-items: center;
     margin-left: -10px;
-
+    width: 100%;
 
   }
   
-  .handle-label {
-    width: 80px;
-    margin-left: -80px; 
+  .handle-name{
+    position: relative;
+    width: 70px;
+    margin-left: -70px; 
+    margin-top: -10px;
     /* text-overflow:; */
     word-wrap: break-word;
+  }
+  .Node1-content{
+    width:200px;
+    min-height: 80px;
+    padding: 4px;
+    /* background-color: rgb(248, 227, 199); */
+    border:1px rgb(189, 124, 173) solid;
+    border-radius: 10px;
+    transition: box-shadow 0.3s ease-in-out;
+  } 
+  .Node1-content:hover{
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.15), 
+    0 10px 10px rgba(0, 0, 0, 0.10), 
+    0 4px 6px rgba(0, 0, 0, 0.05);
   }
  
   

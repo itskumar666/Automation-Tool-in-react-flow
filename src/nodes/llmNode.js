@@ -5,8 +5,8 @@ import { Handle, Position } from 'reactflow';
 export const LLMNode = ({ id, data }) => {
 
   return (
-    <div style={{width: 200, height: 80, border: '1px solid black'}}>
-      <Handle
+    <div className="Node1-content" >
+    <Handle
         type="target"
         position={Position.Left}
         id={`${id}-system`}
