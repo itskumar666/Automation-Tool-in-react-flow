@@ -21,16 +21,13 @@ export const SubmitButton = () => {
   const handleSubmit = async () => {
     try {
       const url = "http://127.0.0.1:8000/pipelines/parse";
-      //    console.log( await axios.get(url))
       const response = await axios.post(url, { nodes, edges });
-      console.log(response);
       if (response) {
-        console.log(response.data,"response nhi hai ye bsafsdgcv")
         setDatat(response.data)
        showPopup()
       }
     } catch (err) {
-      console.log(err);
+       console.log(err);
     }
   };
 
@@ -45,7 +42,6 @@ export const SubmitButton = () => {
       <button type="submit" onClick={handleSubmit}>
         Submit
       </button>
-      {console.log(data,"ye bhi data hai")}
         <Popup
           isVisible={isPopupVisible}
           onClose={hidePopup}

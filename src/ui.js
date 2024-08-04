@@ -27,7 +27,7 @@ const nodeTypes = {
   Node4: nodeType.Node4,
   Node5: nodeType.Node5,
 
-  autoResizeVariableText: AutoResizeVariableText, // Add this line
+  autoResizeVariableText: AutoResizeVariableText,
 };
 
 const selector = (state) => ({
@@ -56,7 +56,7 @@ export const PipelineUI = () => {
   const getInitNodeData = (nodeID, type) => {
     let nodeData = { id: nodeID, nodeType: `${type}` };
     if (type === 'autoResizeVariableText') {
-      nodeData = { ...nodeData, text: '' }; // Add initial data for this node type
+      nodeData = { ...nodeData, text: '' }; 
     }
     return nodeData;
   };

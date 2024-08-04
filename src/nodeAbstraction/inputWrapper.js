@@ -30,10 +30,10 @@ const AutoResizeVariableText = ({ id }) => {
   useEffect(() => {
     const handlePositions = variables.map((_, index) => ({
       id: `op-${index}`,
-      position: { x: 300, y: 20 * (index + 1) }, // Assuming position logic
+      position: { x: 300, y: 20 * (index + 1) }, 
       type: 'source',
     }));
-    console.log("Updating node internals...");
+     
     updateNodeInternals(id);
   }, [variables, id, updateNodeInternals]);
 
