@@ -37,7 +37,8 @@ const nodeContents = {
   },
 
   Weather: ({id,data}) => {
-    // const updateNodeInternals = useUpdateNodeInternals();
+    const [childState, setChildState] = useState(0);
+
     const {
       handle,
       setHandle,
@@ -49,9 +50,8 @@ const nodeContents = {
     const inputRef = useRef(null);
     useEffect(() => {
       autoResize();
-      // updateNodeInternals(id);
 
-    }, [value,id]);
+    }, [value,id,childState]);
   
     const autoResize = () => {
       const input = inputRef.current;
@@ -67,7 +67,7 @@ const nodeContents = {
       setValue(e.target.value);
     };
 
-
+console.log("parent render")
     const getWeather = async () => {
       // const result = await ;
       // setWeather(result);
@@ -76,8 +76,8 @@ const nodeContents = {
     return (
       <div className="weather-content" >
          
-         <AutoResizeVariableText/>
-         
+         <AutoResizeVariableText setChildState={setChildState} id={id}/>
+         <p>{childState}child state kya hai yha</p>
          {a.map((key, index) => (
           console.log(index,key),
             <Handle
@@ -85,7 +85,7 @@ const nodeContents = {
               className="yelauda"
               type="target"
               position="left"
-              key={key}
+              key={index}
               id={`handle-${index}`}
             />
         ))}

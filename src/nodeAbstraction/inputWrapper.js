@@ -2,11 +2,14 @@ import React, { useState, useRef, useEffect } from 'react';
 import {Handle,Position} from "reactflow"
 import {useStore }from '../store';
 import { shallow } from 'zustand/shallow';
+import { useUpdateNodeInternals } from '@xyflow/react';
+
 
 
 import './App.css'
 
-const AutoResizeVariableText = () => {  
+const AutoResizeVariableText = ( {setChildState,id }) => {  
+  const updateNodeInternals = useUpdateNodeInternals();
 
   const selector = (state) => ({
    handle:state.handle,
@@ -37,6 +40,8 @@ const AutoResizeVariableText = () => {
     const foundVariables = [...text.matchAll(regex)].map(match => match[1]);
 
     setVariables(foundVariables);
+    setChildState(prevState => prevState + 1);
+    updateNodeInternals(id); 
     setHandle(foundVariables);
   }, [text]); 
 
