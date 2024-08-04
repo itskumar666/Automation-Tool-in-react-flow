@@ -27,11 +27,14 @@ const nodeContents = {
     );
   },
 
-  Weather: (id,data) => {
+  Weather: ({id,data}) => {
     const [city, setCity] = React.useState('');
     const [weather, setWeather] = React.useState(null);
     const [value, setValue] = useState('');
     const inputRef = useRef(null);
+    console.log("data .......................",data)
+    console.log("id .......................",id)
+
 
     useEffect(() => {
       autoResize();
@@ -59,7 +62,7 @@ const nodeContents = {
 
     return (
       <div className="weather-content" >
-         <AutoResizeVariableText/>
+         <AutoResizeVariableText id={id}/>
         {/* <input type="text" value={city} onChange={(e) => setCity(e.target.value)} placeholder="Enter city" /> */}
         <button onClick={getWeather}>Get Weather</button>
         
