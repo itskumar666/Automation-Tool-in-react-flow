@@ -6,7 +6,7 @@ export const PipelineToolbar = () => {
 
     return (
         <div style={{ padding: '10px' }}>
-            <div style={{ marginTop: '', display: 'flex', flexWrap: 'wrap', gap: '10px',background:"grey" }}>
+            <div style={{ paddingLeft:'250px', display: 'flex', flexWrap: 'wrap', gap: '10px',borderBottom: '1px solid #373A40', paddingBottom: '7px', boxShadow:' 0 4px 4px -4px rgba(0, 0, 0, 0.5)' }}>
                 
                 {/* <DraggableNode type="button" label="button"></DraggableNode> */}
                 <DraggableNode type='customInput' label='Input' />
