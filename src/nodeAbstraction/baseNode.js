@@ -3,7 +3,6 @@ import React from 'react';
 import { Handle,Position } from 'react-flow-renderer';
 
 const BaseNode = ({ data, content: Content }) => {
-    console.log(data,"ye data hai")
     
   const renderInputHandles = () => {
     return data.inputs.map((input, index) => (

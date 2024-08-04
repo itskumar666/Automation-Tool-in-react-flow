@@ -5,4 +5,26 @@
     min-width: 100px; /* Minimum width */
     box-sizing: border-box; /* Include padding in width and height */
   }
+  .custom-node {
+    position: relative;
+  }
+  
+  .handle-container {
+    background-color: rgb(10, 11, 11);
+    position: absolute;
+    display: flex;
+    align-items: center;
+    margin-left: -10px;
+
+
+  }
+  
+  .handle-label {
+    width: 80px;
+    margin-left: -80px; 
+    /* text-overflow:; */
+    word-wrap: break-word;
+  }
+ 
+  
   

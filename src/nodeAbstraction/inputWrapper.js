@@ -1,7 +1,23 @@
 import React, { useState, useRef, useEffect } from 'react';
 import {Handle,Position} from "reactflow"
+import {useStore }from '../store';
+import { shallow } from 'zustand/shallow';
+
+
+import './App.css'
 
 const AutoResizeVariableText = () => {  
+
+  const selector = (state) => ({
+   handle:state.handle,
+   setHandle:state.setHandle
+    
+  });
+  const {
+    handle,
+    setHandle,
+  } = useStore(selector, shallow);
+
   const [text, setText] = useState('');
   const [variables, setVariables] = useState([]);
   const [varw, setVarw] = useState();
@@ -19,14 +35,10 @@ const AutoResizeVariableText = () => {
   useEffect(() => {
     const regex = /\{\{(\w+)\}\}/g;
     const foundVariables = [...text.matchAll(regex)].map(match => match[1]);
-    console.log(foundVariables);
 
     setVariables(foundVariables);
-    console.log(foundVariables, "variable");
+    setHandle(foundVariables);
   }, [text]); 
-
- console.log(ref.current.style.height,"height")
-
 
   const handleChange = (e) => {
     setText(e.target.value);
@@ -36,7 +48,7 @@ const AutoResizeVariableText = () => {
     <div  style={{
       position: 'relative',
       border: '1px solid black',
-      padding:'10px',
+      // padding:'10px',
       minHeight: '100px', 
       ref:{ref},
       width: '300px', 
@@ -52,16 +64,18 @@ const AutoResizeVariableText = () => {
       />
     
 
-        {Array.from({ length: variables.length }).map((_, index) => (
-          <Handle
-            key={index}
-            type="target"
-            position="left"
-            id={`handle-${index}`}
-            style={{ top: `${200 / index}px` }}
-          />
+        {/* {handle.map((_, index) => (
+            <div key={index} className="handle-container" style={{ top: `${100 / (index + 1)}px` }}>
+            <Handle
+              className="yelauda"
+              type="target"
+              position="left"
+              id={`handle-${variables[index]}`}
+            />
+            <div className="handle-label" >{variables[index]}</div>
+          </div>
         ))}
-     
+      */}
        
   
     </div>

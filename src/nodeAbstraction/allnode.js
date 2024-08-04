@@ -3,7 +3,16 @@ import React, { useState, useRef, useEffect } from 'react';
 import BaseNode from './baseNode';
 import { Handle, Position } from 'reactflow';
 import AutoResizeVariableText from './inputWrapper';
+import {useStore }from '../store';
+import { shallow } from 'zustand/shallow';
+import { ReactFlowProvider, useUpdateNodeInternals } from '@xyflow/react';
 
+const selector = (state) => ({
+  handle:state.handle,
+  setHandle:state.setHandle
+   
+ });
+ 
 // Define all node contents here
 const nodeContents = {
   Calculator: ({ onCalculate }) => {
@@ -27,15 +36,22 @@ const nodeContents = {
     );
   },
 
-  Weather: (id,data) => {
+  Weather: ({id,data}) => {
+    // const updateNodeInternals = useUpdateNodeInternals();
+    const {
+      handle,
+      setHandle,
+    } = useStore(selector, shallow);
+   
     const [city, setCity] = React.useState('');
     const [weather, setWeather] = React.useState(null);
     const [value, setValue] = useState('');
     const inputRef = useRef(null);
-
     useEffect(() => {
       autoResize();
-    }, [value]);
+      // updateNodeInternals(id);
+
+    }, [value,id]);
   
     const autoResize = () => {
       const input = inputRef.current;
@@ -56,19 +72,24 @@ const nodeContents = {
       // const result = await ;
       // setWeather(result);
     };
-
+  let a=new Array(handle.length).fill(9)
     return (
       <div className="weather-content" >
+         
          <AutoResizeVariableText/>
-        {/* <input type="text" value={city} onChange={(e) => setCity(e.target.value)} placeholder="Enter city" /> */}
-        <button onClick={getWeather}>Get Weather</button>
-        
-        {weather && (
-          <div className="weather-display">
-            <p>Temperature: {weather.temperature}°C</p>
-            <p>Condition: {weather.condition}</p>
-          </div>
-        )}
+         
+         {a.map((key, index) => (
+          console.log(index,key),
+            <Handle
+              style={{ top: `${100 / (index + 1)}px`}}
+              className="yelauda"
+              type="target"
+              position="left"
+              key={key}
+              id={`handle-${index}`}
+            />
+        ))}
+     
       </div>
     );
   },
@@ -80,6 +101,7 @@ const nodeContents = {
 const nodeType = Object.entries(nodeContents).reduce((types, [key, Content]) => {
   types[key] = (props) => <BaseNode {...props} content={Content}  />;
   return types;
-}, {});
+}, {}
 
+);
 export { nodeType };

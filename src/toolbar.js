@@ -7,6 +7,7 @@ export const PipelineToolbar = () => {
     return (
         <div style={{ padding: '10px' }}>
             <div style={{ marginTop: '', display: 'flex', flexWrap: 'wrap', gap: '10px',background:"grey" }}>
+                
                 <DraggableNode type="button" label="button"></DraggableNode>
                 <DraggableNode type='customInput' label='Input' />
                 <DraggableNode type='llm' label='LLM' />

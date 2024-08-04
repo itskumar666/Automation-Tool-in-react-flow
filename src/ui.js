@@ -1,9 +1,9 @@
 // ui.js
 // Displays the drag-and-drop UI
 // --------------------------------------------------
-
 import { useState, useRef, useCallback } from 'react';
 import ReactFlow, { Controls, Background, MiniMap } from 'reactflow';
+
 import { useStore } from './store';
 import { shallow } from 'zustand/shallow';
 import { InputNode } from './nodes/inputNode';
@@ -14,6 +14,8 @@ import button from './nodes/button'
 import { nodeType } from './nodeAbstraction/allnode';
 
 import 'reactflow/dist/style.css';
+import { useReactFlow } from 'react-flow-renderer';
+import { ReactFlowProvider } from '@xyflow/react';
 
 const gridSize = 20;
 const proOptions = { hideAttribution: true };
@@ -26,7 +28,6 @@ const nodeTypes = {
   calculator:nodeType.Calculator,
   weather:nodeType.Weather,
 };
-console.log(nodeType,"bkl hai ye")
 
 const selector = (state) => ({
   nodes: state.nodes,
@@ -36,11 +37,13 @@ const selector = (state) => ({
   onNodesChange: state.onNodesChange,
   onEdgesChange: state.onEdgesChange,
   onConnect: state.onConnect,
+  
 });
 
 export const PipelineUI = () => {
     const reactFlowWrapper = useRef(null);
     const [reactFlowInstance, setReactFlowInstance] = useState(null);
+
     const {
       nodes,
       edges,
@@ -84,6 +87,7 @@ export const PipelineUI = () => {
             };
       
             addNode(newNode);
+
           }
         },
         [reactFlowInstance]
@@ -97,6 +101,7 @@ export const PipelineUI = () => {
     return (
         <>
         <div ref={reactFlowWrapper} style={{width: '100wv', height: '70vh'}}>
+          <ReactFlowProvider>
             <ReactFlow
                 nodes={nodes}
                 edges={edges}
@@ -115,6 +120,8 @@ export const PipelineUI = () => {
                 <Controls />
                 <MiniMap />
             </ReactFlow>
+            </ReactFlowProvider>
+
         </div>
         </>
     )
